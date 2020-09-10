@@ -1,0 +1,194 @@
+import pandas as pd
+
+import numpy as np
+
+import time
+
+import turicreate as tc
+
+
+
+
+%%uploading dataset 
+
+users = pd.read_csv('../dataset/recommendation.csv') 
+
+purchases = pd.read_csv('../dataset/trainingdataset.csv')
+
+
+
+
+RecommendationList = pd.read_csv('../dataset/RL.csv') 
+
+train = pd.read_csv('../dataset/dset.csv')
+
+
+#Checking whether a user bought the item or not
+
+
+                    
+def create_data_pur(data_pur):
+
+    data_pur = data.copy()
+    
+    data_ pur['purchase'] = 1
+    
+    return data_pur = create_ data_pur(data_pur)
+
+
+# Splitting dtaset into training set and testing set
+
+from sklearn.cross_validation import train_test_split
+
+
+def splitdataset(dataset):
+
+        trainset, testset = train_test_split(dataset, test_size = .2)
+        
+    trainset = tc.SFrame(train)
+    
+    testset = tc.SFrame(test)
+    
+    return train_data, test_data
+
+
+                    *****************
+
+def splitdataset(dataset):
+
+        trainset, testset = train_test_split(dataset, test_size = .2)
+        
+    trainset = tc.SFrame(train)
+    
+    testset = tc.SFrame(test)
+    
+    return train_data, test_data
+
+
+train_ data_pur, test_ data_pur = splitdataset(data_pur)
+
+
+
+
+
+# Define columns  to:user_id = 'visitorid'
+
+item_id = 'item'
+
+userrecommendationlist = list(users[user_id])
+
+# number of recommended items
+
+n = 10
+
+n_head = 10
+
+recommendations = list(users[UserID])
+
+N = 10 
+
+
+#build recommendations model 
+
+def model(train_ data_pur, rs, user_id, item_id, target, userrecommendationlist, n, n_head):
+
+    if name == 'popularityrs':
+    
+        model = tc.popularity_recommender.create(train_ data_pur, 
+        
+                                                    user_id=user_id,
+                                                    
+                                                    item_id=item_id,
+                                                    
+                                                    target=target)
+
+
+    elif name == 'cosine':
+    
+        model = tc.item_similarity_recommender.create(train_ data_pur,
+        
+                                                    user_id=user_id,
+                                                    
+                                                    item_id=item_id, 
+                                                    
+                                                    target=target, 
+                                                    
+                                                    similarity_type='cosine')
+
+
+
+elif name == 'prars':
+
+        model = tc.item_similarity_recommender.create(train_ data_pur,
+        
+                                                    user_id=user_id, 
+                                                    
+                                                    item_id=item_id,
+                                                    
+                                                    target=target, 
+                                                    
+                                                    similarity_type='cosine')
+        
+    recommend = model.recommend(users= userrecommendationlist, k=n)
+    
+    recom.print_rows(n_display)
+    
+    return model
+
+
+
+name = 'popularityrs'
+
+target = 'purchase'
+
+popularity_ data_pur = model(train_ data_pur, name, user_id, item_id, target, userrecommendationlist, n_rec, n_head)
+
+
+
+name = 'cosine'
+
+target = 'purchase'
+
+cos_data_pur = model(train__ data_pur, name, user_id, item_id, target, userrecommendationlist, n, n_head)
+
+
+name = 'prars'
+
+target = 'purchase'
+
+pear_dummy = model(train__ data_pur, name, user_id, item_id, target, userrecommendationlist, n, n_head)
+
+#Mode Evaluation
+
+models_purchases = [pop_ purchase, purchase_cos, purchase_pear]
+
+names_purchases = ['Popularity recommeender based on purchase', 'Item Similarity recommender based on purchase', 'prars items similarity based on purchase']
+
+
+
+eval_purchase = tc.recommender.util.compare_models(test_ data_pur, models_purchases, model_names= models_purchases)
+
+
+
+f_model = tc.item_similarity_recommender.create(tc.SFrame(data_pur), 
+
+                                            user_id=user_id, 
+                                            
+                                            item_id=item_id, 
+                                            
+                                            target='purchase', similarity_type='cosine')recom = final_model.recommend(users= userrecommendationlist, k=n)
+recom.print_rows(n_display)
+
+
+df = pd.read_csv(r'C:\..data\Dataset.csv')
+
+	Pcount= df.groupby([' ItemID '])[' Puarshases '].count()
+  
+a=df.groupby(['NoCate'])['ItemID'].min()
+
+
+dataframe_rec = recom.to_dataframe()
+
+print(ataframe_rec.shape)
+
+ataframe_rec.head()
